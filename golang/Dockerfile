@@ -1,6 +1,16 @@
-FROM golang:latest
-RUN mkdir /app 
-ADD . /app/
-WORKDIR /app 
-RUN go build -o main .
-CMD ["./main"]
+FROM golang:1.10 AS builder
+
+# Download and install the latest release of dep
+ADD https://github.com/golang/dep/releases/download/v0.4.1/dep-linux-amd64 /usr/bin/dep
+RUN chmod +x /usr/bin/dep
+
+# Copy the code from the host and compile it
+WORKDIR $GOPATH/src/github.com/justin2997/Knative-Build-GitHub-Exemple
+COPY Gopkg.toml Gopkg.lock ./
+RUN dep ensure --vendor-only
+COPY . ./
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o /app .
+
+FROM scratch
+COPY --from=builder /app ./
+ENTRYPOINT ["./app"]
