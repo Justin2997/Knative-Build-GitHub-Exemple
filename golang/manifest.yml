@@ -1,0 +1,6 @@
+---
+applications:
+  - name: golang-form-source
+    env:
+      GOVERSION: go1.8
+      GOPACKAGENAME: main
