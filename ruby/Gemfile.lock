@@ -1,11 +1,17 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    bundle (0.0.1)
+      bundler
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundle
+
+RUBY VERSION
+   ruby 2.3.7p456
 
 BUNDLED WITH
    2.0.1
