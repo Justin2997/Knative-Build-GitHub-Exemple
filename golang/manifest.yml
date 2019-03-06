@@ -1,0 +1,3 @@
+---
+  env:
+    GOPACKAGENAME: github.com/justin2997/golang-from-source
