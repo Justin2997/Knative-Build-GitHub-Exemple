@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: java-build-bot
+secrets:
+  - name: basic-user-pass
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: java-from-source
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      build:
+        apiVersion: build.knative.dev/v1alpha1
+        kind: Build
+        spec:
+          serviceAccountName: java-build-bot
+          source:
+            git:
+              url: https://github.com/Justin2997/Knative-Build-GitHub-Exemple.git
+              revision: master
+          template:
+            name: buildpack
+            arguments:
+              - name: IMAGE
+                value: docker.io/justin2997/java-from-source:latest
+              - name: DIRECTORY
+                value: /workspace/java
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/justin2997/java-from-source:latest
+            imagePullPolicy: Always
