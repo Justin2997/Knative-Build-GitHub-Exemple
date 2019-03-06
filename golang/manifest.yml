@@ -1,3 +1,6 @@
 ---
-  env:
-    GOPACKAGENAME: github.com/justin2997/golang-from-source
+applications:
+  - name: golang-from-source
+    command: golang-from-source
+    env:
+      GOPACKAGENAME: github.com/justin2997/golang-from-source
