@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: golang-build-bot
+  name: nodejs-build-bot
 secrets:
   - name: basic-user-pass
 ---
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: golang-from-source
+  name: nodejs-from-source
   namespace: default
 spec:
   runLatest:
@@ -17,20 +17,20 @@ spec:
         apiVersion: build.knative.dev/v1alpha1
         kind: Build
         spec:
-          serviceAccountName: golang-build-bot
+          serviceAccountName: nodejs-build-bot
           source:
             git:
               url: https://github.com/Justin2997/Knative-Build-GitHub-Exemple.git
               revision: master
           template:
-            name: kaniko
+            name: buildpack
             arguments:
               - name: IMAGE
-                value: docker.io/justin2997/golang-from-source:latest
+                value: docker.io/justin2997/nodejs-from-source:latest
               - name: DOCKERFILE
-                value: /golang/Dockerfile
+                value: /workspace/nodejs
       revisionTemplate:
         spec:
           container:
-            image: docker.io/justin2997/golang-from-source:latest
+            image: docker.io/justin2997/nodejs-from-source:latest
             imagePullPolicy: Always

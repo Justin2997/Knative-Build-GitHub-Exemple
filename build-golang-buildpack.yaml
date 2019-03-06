@@ -20,15 +20,13 @@ spec:
           serviceAccountName: golang-build-bot
           source:
             git:
-              url: https://github.com/Justin2997/Knative-Build-GitHub-Exemple.git
+              url: https://github.com/heroku/node-js-sample.git
               revision: master
           template:
             name: buildpack
             arguments:
               - name: IMAGE
                 value: docker.io/justin2997/golang-from-source:latest
-              - name: DIRECTORY
-                value: /golang/Dockerfile
       revisionTemplate:
         spec:
           container:
