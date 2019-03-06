@@ -1,6 +1,0 @@
----
-applications:
-  - name: golang-form-source
-    env:
-      GOVERSION: go1.8
-      GOPACKAGENAME: github.com/justin2997/golang-form-source
